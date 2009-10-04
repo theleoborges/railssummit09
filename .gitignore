@@ -1,4 +1,5 @@
 *.jar
 .DS_Store
+deploy.sh
 rTasks/tmp/
 jTasks/target/
