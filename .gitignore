@@ -1,0 +1,4 @@
+*.jar
+.DS_Store
+rTasks/tmp/
+jTasks/target/

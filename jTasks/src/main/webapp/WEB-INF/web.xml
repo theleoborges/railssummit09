@@ -1,0 +1,19 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+  <display-name>Tasks Application</display-name>
+  
+    <servlet>
+      <servlet-name>TasksServlet</servlet-name>
+      <description>TasksServlet</description>
+      <servlet-class>com.leonardoborges.web.TasksServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+      <servlet-name>TasksServlet</servlet-name>
+      <url-pattern>Tasks.html</url-pattern>
+    </servlet-mapping>
+  
+</web-app>

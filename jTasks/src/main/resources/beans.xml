@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+	<context:annotation-config />
+	<context:component-scan base-package="com.leonardoborges" />
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost/jtasks" />
+		<property name="username" value="root" />
+		<property name="password" value="" />
+	</bean>
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="annotatedClasses">
+			<list>
+				<value>com.leonardoborges.models.Task</value>
+			</list>
+		</property>
+		<property name="annotatedPackages">
+			<list>
+				<value>com.leonardoborges.models</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<value>
+        		hibernate.dialect=org.hibernate.dialect.MySQLDialect
+        		<!-- hibernate.hbm2ddl.auto=create -->
+      		</value>
+		</property>
+	</bean>
+</beans>

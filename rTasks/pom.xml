@@ -1,0 +1,85 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.leonardoborges</groupId>
+	<artifactId>fakeWebApp</artifactId>
+	<packaging>war</packaging>
+	<version>1.0-SNAPSHOT</version>
+	<name>fake</name>
+	<url>http://maven.apache.org</url>
+	<dependencies>
+		<dependency>
+			<groupId>com.leonardoborges</groupId>
+			<artifactId>jtasks-lib</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+    <build>
+        <finalName>fakeWebApp</finalName>
+        <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>create-mock-web-descriptor</id>
+            <phase>compile</phase>
+            <configuration>
+              <executable>/bin/sh</executable>
+              <workingDirectory>.</workingDirectory>
+              <arguments>
+                <argument>-c</argument>
+                <argument>
+                    mkdir -p src/main/webapp/WEB-INF
+                    touch    src/main/webapp/WEB-INF/web.xml
+                </argument>
+              </arguments>
+            </configuration>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>copy-needed-jars-into-lib</id>
+            <phase>package</phase>
+            <configuration>
+              <executable>/bin/sh</executable>
+              <workingDirectory>.</workingDirectory>
+              <arguments>
+                <argument>-c</argument>
+                <argument>
+                    rm -f lib/*.jar
+                    cp target/fakeWebApp/WEB-INF/lib/*.jar lib
+                    rm -rf target/fakeWebApp*
+                    rm -rf src
+                </argument>
+              </arguments>
+            </configuration>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>create-final-war</id>
+            <phase>package</phase>
+            <configuration>
+              <executable>/bin/sh</executable>
+              <workingDirectory>.</workingDirectory>
+              <arguments>
+                <argument>-c</argument>
+                <argument>
+                   rm -rf *.war tmp/war
+                   jruby -S warble &amp;&amp; \
+                   mv *.war target/rTasks.war
+                </argument>
+              </arguments>
+            </configuration>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+     </plugins>
+    </build>
+</project>

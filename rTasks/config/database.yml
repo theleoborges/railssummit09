@@ -1,0 +1,13 @@
+development:
+  adapter: jdbcmysql
+  encoding: utf8
+  database: jtasks
+  username: root
+  password:
+      
+production:
+  adapter: jdbcmysql
+  encoding: utf8
+  database: jtasks
+  username: root
+  password:      
